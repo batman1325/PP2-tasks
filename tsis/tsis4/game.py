@@ -28,8 +28,6 @@ def save_settings(settings):
 
 
 # Grid drawing
-# BUG FIX: original code swapped i/j axes, causing the grid lines to be drawn
-# on the wrong axis. Fixed by using x for columns (j) and y for rows (i).
 
 def draw_grid(screen):
     for i in range(HEIGHT // CELL):

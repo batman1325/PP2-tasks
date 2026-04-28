@@ -1,8 +1,4 @@
--- ============================================================
---  setup.sql
---  Run this ONE time to build the entire database.
---  It drops everything first so it is safe to re-run.
--- ============================================================
+
 
 -- Drop in reverse dependency order
 DROP FUNCTION  IF EXISTS search_contacts(text)           CASCADE;
@@ -19,7 +15,7 @@ DROP TABLE IF EXISTS phonebook CASCADE;
 DROP TABLE IF EXISTS contacts  CASCADE;
 DROP TABLE IF EXISTS groups    CASCADE;
 
--- ── TABLES ──────────────────────────────────────────────────
+--  TABLES
 
 CREATE TABLE groups (
     id   SERIAL PRIMARY KEY,
@@ -44,7 +40,7 @@ CREATE TABLE phones (
     type       VARCHAR(10) CHECK (type IN ('home', 'work', 'mobile'))
 );
 
--- ── PROCEDURES ──────────────────────────────────────────────
+--  PROCEDURES 
 
 -- Insert contact if not exists, then add the phone to phones table
 CREATE PROCEDURE upsert_u(p_name VARCHAR, p_phone VARCHAR, p_type VARCHAR DEFAULT 'mobile')
@@ -121,7 +117,7 @@ BEGIN
 END;
 $$;
 
--- ── FUNCTIONS ───────────────────────────────────────────────
+-- FUNCTIONS
 
 -- Paginated list of contacts (page-by-page browsing)
 CREATE FUNCTION pagination(lim INT, offs INT)

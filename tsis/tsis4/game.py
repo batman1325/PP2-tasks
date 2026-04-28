@@ -110,8 +110,6 @@ class Snake:
                 self.score += (food.n + 1)
                 self.body.append(Point(head.x, head.y))
                 self.level = 1 + self.score // 3
-            # BUG FIX: food.generate_random_pos already resets cooldown_start
-            # internally, so no extra reset needed here.
             food.generate_random_pos(self.body, obstacles)
 
     def draw(self, screen):
@@ -155,9 +153,6 @@ class Food:
 
     def generate_random_pos(self, snake_body, obstacles=None):
         self._pick_type()
-        # BUG FIX: reset the timer here (was being reset to a local variable
-        # `current_time` in main.py that was never used, so the timer never
-        # actually reset and food would teleport every frame after first expiry).
         self.cooldown_start = pygame.time.get_ticks()
         blocked = {(s.x, s.y) for s in snake_body}
         if obstacles:
